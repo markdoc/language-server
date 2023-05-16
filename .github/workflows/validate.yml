@@ -16,6 +16,10 @@ jobs:
         with:
           node-version: 20
           cache: "npm"
+      - run: npm ci
+        working-directory: client
+      - run: npm ci
+        working-directory: server
       - name: npm install, build, and test
         run: |
           npm ci
