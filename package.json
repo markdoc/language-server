@@ -8,7 +8,7 @@
   "scripts": {
     "build": "node build.mjs",
     "build:watch": "node build.mjs --watch",
-    "build:types": "tsc --emitDeclarationOnly --outDir build",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist",
     "test": "node -r esbuild-register --test server/**/*.test.ts",
     "test:watch": "node -r esbuild-register --watch --test server/**/*.test.ts"
   },
