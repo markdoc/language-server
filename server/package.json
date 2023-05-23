@@ -2,9 +2,12 @@
   "name": "@markdoc/language-server",
   "version": "0.0.1",
   "description": "A Markdoc language server",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "author": "Ryan Paul",
   "license": "MIT",
+  "scripts": {
+    "build": "esbuild index.ts --bundle --outdir=dist --sourcemap=linked --external:vscode --platform=node --format=cjs"
+  },
   "devDependencies": {
     "@markdoc/markdoc": "^0.2.1",
     "@types/picomatch": "^2.3.0",
