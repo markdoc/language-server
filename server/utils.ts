@@ -2,6 +2,7 @@ import pathutil from "path";
 import { promises as fs } from "fs";
 import { TextDocument } from "vscode-languageserver-textdocument";
 import * as LSP from "vscode-languageserver/node";
+import type * as Markdoc from "@markdoc/markdoc";
 
 export async function* findFiles(
   target: string,
@@ -27,4 +28,10 @@ export function getContentRangeInLine(
   const startOffset = lineContent.indexOf(text);
   const endOffset = startOffset + text.length;
   return LSP.Range.create(line, startOffset, line, endOffset);
+}
+
+export function* getBlockRanges(ast: Markdoc.Node) {
+  for (const { type, lines, tag } of ast.walk())
+    if (type === "tag" && lines.length === 4)
+      yield { start: lines[0], end: lines[2], tag };
 }
