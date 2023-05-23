@@ -14,6 +14,12 @@
   "engines": {
     "vscode": "^1.63.0"
   },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "esbuild": "0.17.17",
+    "esbuild-register": "^3.4.2",
+    "typescript": "^4.9.3"
+  },
   "contributes": {
     "configuration": {
       "title": "Markdoc Language Server",
@@ -106,11 +112,5 @@
         }
       }
     ]
-  },
-  "devDependencies": {
-    "@types/node": "^18.11.18",
-    "esbuild": "0.17.17",
-    "esbuild-register": "^3.4.2",
-    "typescript": "^4.9.3"
   }
 }
