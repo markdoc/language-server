@@ -3,6 +3,7 @@
   "author": "Ryan Paul",
   "license": "MIT",
   "version": "0.0.1",
+  "description": "A Markdoc language server and Visual Studio Code extension",
   "main": "./build/client/index.js",
   "scripts": {
     "build": "node build.mjs",
