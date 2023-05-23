@@ -4,7 +4,7 @@
   "license": "MIT",
   "version": "0.0.1",
   "description": "A Markdoc language server and Visual Studio Code extension",
-  "main": "./build/client/index.js",
+  "main": "./dist/client/index.js",
   "scripts": {
     "build": "node build.mjs",
     "build:watch": "node build.mjs --watch",

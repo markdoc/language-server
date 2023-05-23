@@ -85,7 +85,7 @@ export default class MarkdocClient implements VSC.Disposable {
     const config = { root: fsPath, ...this.config };
     const module = config.server?.path
       ? pathutil.join(fsPath, config.server?.path)
-      : this.context.asAbsolutePath("build/client/server.js");
+      : this.context.asAbsolutePath("dist/client/server.js");
 
     const run: LSP.NodeModule = { module, transport: LSP.TransportKind.ipc };
     const server: LSP.ServerOptions = {
