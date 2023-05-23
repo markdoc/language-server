@@ -4,6 +4,13 @@
   "license": "MIT",
   "version": "0.0.1",
   "main": "./build/client/index.js",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node -r esbuild-register --test server/**/*.test.ts",
+    "test:watch": "node -r esbuild-register --watch --test server/**/*.test.ts",
+    "build:watch": "node build.mjs --watch",
+    "build:types": "tsc --emitDeclarationOnly --outDir build"
+  },
   "engines": {
     "vscode": "^1.63.0"
   },
@@ -99,13 +106,6 @@
         }
       }
     ]
-  },
-  "scripts": {
-    "build": "node build.mjs",
-    "test": "node -r esbuild-register --test server/**/*.test.ts",
-    "test:watch": "node -r esbuild-register --watch --test server/**/*.test.ts",
-    "build:watch": "node build.mjs --watch",
-    "build:types": "tsc --emitDeclarationOnly --outDir build"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
