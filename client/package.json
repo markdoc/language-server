@@ -1,5 +1,5 @@
 {
-	"name": "markdoc-language-client",
+	"name": "@markdoc/language-client",
 	"description": "Markdoc Extension",
 	"author": "Ryan Paul",
 	"license": "MIT",
