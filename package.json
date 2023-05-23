@@ -1,5 +1,5 @@
 {
-  "name": "@markdoc/language-server",
+  "private": true,
   "author": "Ryan Paul",
   "license": "MIT",
   "version": "0.0.1",
