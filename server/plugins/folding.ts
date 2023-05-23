@@ -1,6 +1,7 @@
 import * as LSP from "vscode-languageserver/node";
 import type * as Markdoc from "@markdoc/markdoc";
 import type { Config, ServiceInstances } from "../types";
+import * as utils from "../utils";
 
 export default class FoldingProvider {
   constructor(
@@ -16,11 +17,9 @@ export default class FoldingProvider {
   }
 
   protected ranges(ast: Markdoc.Node) {
-    const ranges: LSP.FoldingRange[] = [];
-    for (const { type, lines } of ast.walk())
-      if (type === "tag" && lines.length === 4)
-        ranges.push(LSP.FoldingRange.create(lines[0], lines[2]));
-    return ranges;
+    return Array.from(utils.getBlockRanges(ast)).map(({ start, end }) =>
+      LSP.FoldingRange.create(start, end)
+    );
   }
 
   protected onFoldingRange(params: LSP.FoldingRangeParams): LSP.FoldingRange[] {
