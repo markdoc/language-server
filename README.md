@@ -2,7 +2,7 @@
 
 > **Note**: this repo will be treated as a beta version until `1.0.0` is released.
 
-## Usage
+## Setup
 
 ## Contributing
 
