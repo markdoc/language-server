@@ -1,11 +1,25 @@
 {
-  "name": "markdoc-lsp",
+  "private": true,
   "author": "Ryan Paul",
   "license": "MIT",
   "version": "0.0.1",
-  "main": "./build/client/index.js",
+  "description": "A Markdoc language server and Visual Studio Code extension",
+  "main": "./dist/client/index.js",
+  "scripts": {
+    "build": "node build.mjs",
+    "build:watch": "node build.mjs --watch",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist",
+    "test": "node -r esbuild-register --test server/**/*.test.ts",
+    "test:watch": "node -r esbuild-register --watch --test server/**/*.test.ts"
+  },
   "engines": {
     "vscode": "^1.63.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "esbuild": "0.17.17",
+    "esbuild-register": "^3.4.2",
+    "typescript": "^4.9.3"
   },
   "contributes": {
     "configuration": {
@@ -99,18 +113,5 @@
         }
       }
     ]
-  },
-  "scripts": {
-    "build": "node build.mjs",
-    "test": "node -r esbuild-register --test server/**/*.test.ts",
-    "test:watch": "node -r esbuild-register --watch --test server/**/*.test.ts",
-    "build:watch": "node build.mjs --watch",
-    "build:types": "tsc --emitDeclarationOnly --outDir build"
-  },
-  "devDependencies": {
-    "@types/node": "^18.11.18",
-    "esbuild": "0.17.17",
-    "esbuild-register": "^3.4.2",
-    "typescript": "^4.9.3"
   }
 }

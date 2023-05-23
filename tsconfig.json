@@ -11,5 +11,5 @@
     "skipLibCheck": true
   },
   "include": ["**/*.ts", "**/*.d.ts"],
-  "exclude": ["build", "**/*.test.ts"]
+  "exclude": ["dist", "**/*.test.ts"]
 }
