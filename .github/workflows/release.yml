@@ -15,9 +15,9 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           cache: "npm"
       - run: npm ci
-      - run: cd server
-      - run: npm ci
       - run: npm run build
+      - run: cp -r dist/server server/dist # Move server build into server dir
+      - run: cd server
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
