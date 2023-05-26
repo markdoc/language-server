@@ -20,6 +20,10 @@ export default class Preview implements VSC.Disposable {
     this.panel.onDidDispose(() => (this.panel = undefined));
   }
 
+  getAssetUri(uri: VSC.Uri) {
+    return this.panel?.webview.asWebviewUri(uri);
+  }
+
   update(content: string) {
     if (!this.panel) return;
     this.panel.webview.html = content;

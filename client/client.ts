@@ -141,9 +141,15 @@ export default class MarkdocClient implements VSC.Disposable {
     }));
   }
 
-  async renderPreview(uri: VSC.Uri): Promise<string | void> {
+  async renderPreview(
+    contentUri: VSC.Uri,
+    assetUri?: VSC.Uri
+  ): Promise<string | void> {
     if (!this.client || this.state != ClientState.Running) return;
-    return this.client.sendRequest("markdoc.renderPreview", uri.toString());
+    return this.client.sendRequest("markdoc.renderPreview", [
+      contentUri.toString(),
+      assetUri?.toString(),
+    ]);
   }
 
   async getDependencies(uri: VSC.Uri): Promise<DependencyInfo | void> {

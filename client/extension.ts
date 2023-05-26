@@ -181,7 +181,8 @@ export default class Extension {
     if (!client?.canPreview()) return;
 
     this.preview.display();
-    const output = await client.renderPreview(uri);
+    const assetUri = this.preview.getAssetUri(client.root.uri);
+    const output = await client.renderPreview(uri, assetUri);
     if (output) this.preview.update(output);
   }
 
