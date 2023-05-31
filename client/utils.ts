@@ -17,3 +17,12 @@ export function getConfigForWorkspace(root: VSC.WorkspaceFolder): VSC.Uri {
   const path = settings.get<string>("config.path", "markdoc.config.json");
   return VSC.Uri.joinPath(root.uri, path);
 }
+
+export async function diff(uri: VSC.Uri) {
+  const git = VSC.extensions.getExtension("vscode.git");
+  if (!git) return;
+
+  const extension = await git.activate();
+  const repo = extension.model.getRepository(uri);
+  return repo.diffWithHEAD(uri.fsPath);
+}

@@ -1,5 +1,6 @@
 import * as VSC from "vscode";
 import * as LSP from "vscode-languageclient/node";
+import * as utils from "./utils";
 import pathutil from "path";
 
 import type { DependencyInfo, Config } from "../server/types";
@@ -124,6 +125,11 @@ export default class MarkdocClient implements VSC.Disposable {
         .then((result) => (this.templates = result));
 
     this.disposables.push(
+      this.client.onRequest("markdoc/diff", (file: string) => {
+        const uri = VSC.Uri.parse(file);
+        return utils.diff(uri);
+      }),
+
       this.client.onProgress(
         LSP.WorkDoneProgress.type,
         "initialize",
