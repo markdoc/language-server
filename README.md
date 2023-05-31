@@ -15,7 +15,7 @@ When the language server and extension are used together and configured to load 
 - Creating new Markdoc files from user-defined templates via the new file menu
 - Linked editing for matched opening and closing tag names
 
-## Configuration quickstart
+# Configuration quickstart
 
 After installing the Markdoc extension in Visual Studio Code, create a Markdoc language server configuration file. The extension looks for a file called `markdoc.config.json` in your workspace root, but you can customize this in the extension's settings.
 
@@ -55,6 +55,10 @@ It is possible to have multiple Markdoc configurations for the same workspace by
 
 In [multi-root workspaces](https://code.visualstudio.com/docs/editor/multi-root-workspaces), a Markdoc configuration file is specific to an individual workspace root. You can have separate Markdoc configuration files for each root. If you need to override the location of the Markdoc language server configuration file in a multi-root workspace, you can use a [folder setting](https://code.visualstudio.com/docs/editor/multi-root-workspaces#_settings) to customize this behavior per root.
 
+# Contributing
+
+Contributions and feedback are welcomed and encouraged. Feel free to open PRs here, or open issues and discussion threads in the [Markdoc core repo](https://github.com/markdoc/markdoc).
+
 ## Building from source
 
 ```
@@ -73,6 +77,6 @@ The test suite relies on the 'node:test' module that is only included in Node.js
 $ npm run test
 ```
 
-## License
+# License
 
 This project uses the [MIT license](LICENSE).

@@ -43,9 +43,9 @@ export default class ValidationProvider {
     };
   }
 
-  createRange(line: number, location?: Markdoc.Location): LSP.Range {
+  createRange(line: number = 0, location?: Markdoc.Location): LSP.Range {
     const { start, end } = location ?? {};
-    if (start?.character && end?.character)
+    if (start?.character !== undefined && end?.character !== undefined)
       return LSP.Range.create(
         start.line,
         start.character,
