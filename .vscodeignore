@@ -1,0 +1,9 @@
+**/*
+!dist/client/index.js
+!dist/client/server.js
+!language-configuration.json
+!LICENSE
+!README.md
+!logo.png
+!package.json
+!syntaxes
