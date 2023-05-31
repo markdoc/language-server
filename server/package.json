@@ -1,6 +1,6 @@
 {
   "name": "@markdoc/language-server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Markdoc language server",
   "main": "dist/index.js",
   "author": "Ryan Paul",
