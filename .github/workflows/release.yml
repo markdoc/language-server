@@ -15,10 +15,15 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           cache: "npm"
       - run: npm ci
+        working-directory: client
+      - run: npm ci
+        working-directory: server
+      - run: npm ci
       - run: npm run build
+      - run: npx vsce publish -p ${{ secrets.VSCODE_MARKET_TOKEN }}
       - run: cp -r dist/server server/dist # Move server build into server dir
-      - run: cd server
+      - run: cp README.md server
       - run: npm publish --access public
+        working-directory: ./server
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: npx vsce publish -p ${{ secrets.VSCODE_MARKET_TOKEN }}

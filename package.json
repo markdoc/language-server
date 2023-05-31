@@ -1,8 +1,8 @@
 {
-  "name": "@markdoc/language-support",
+  "name": "markdoc-language-support",
   "displayName": "Markdoc language support",
-  "icon": "logo.png",
   "private": true,
+  "icon": "logo.png",
   "preview": true,
   "author": "Ryan Paul",
   "publisher": "stripe",

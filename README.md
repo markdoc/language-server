@@ -1,5 +1,3 @@
-# `@markdoc/language-server`
-
 This is the official Visual Studio Code extension and language server for the [Markdoc](https://markdoc.dev/) authoring framework.
 
 When the language server and extension are used together and configured to load a Markdoc schema, they support the following features:
