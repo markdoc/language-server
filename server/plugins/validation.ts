@@ -10,9 +10,9 @@ export default class ValidationProvider {
     protected connection: LSP.Connection,
     protected services: ServiceInstances
   ) {
-    services.Documents.onDidSave(this.onValidate, this);
+    services.Documents.onDidSave(this.onDidSave, this);
     services.Documents.onDidClose(this.onDidClose, this);
-    services.Documents.onDidChangeContent(this.onValidate, this);
+    services.Documents.onDidChangeContent(this.onDidChangeContent, this);
   }
 
   severity(level: string): LSP.DiagnosticSeverity {
@@ -56,7 +56,7 @@ export default class ValidationProvider {
     return LSP.Range.create(line, 0, line + 1, 0);
   }
 
-  onValidate({ document: { uri } }: TextChangeEvent) {
+  validate(uri: string) {
     const doc = this.services.Documents.ast(uri);
     const schema = this.services.Schema.get();
 
@@ -64,8 +64,7 @@ export default class ValidationProvider {
 
     const config = this.configuration(uri);
     const errors = Markdoc.validate(doc, config);
-    const diagnostics = errors.map((err) => this.diagnostic(err));
-    this.connection.sendDiagnostics({ uri, diagnostics });
+    return errors.map((err) => this.diagnostic(err));
   }
 
   configuration(uri: string): Markdoc.Config {
@@ -79,6 +78,16 @@ export default class ValidationProvider {
         partials[part.attributes.file] = true;
 
     return { ...Schema?.get(), partials };
+  }
+
+  onDidSave({ document: { uri } }: TextChangeEvent) {
+    const diagnostics = this.validate(uri);
+    if (diagnostics) this.connection.sendDiagnostics({ uri, diagnostics });
+  }
+
+  onDidChangeContent({ document: { uri } }: TextChangeEvent) {
+    const diagnostics = this.validate(uri);
+    if (diagnostics) this.connection.sendDiagnostics({ uri, diagnostics });
   }
 
   onDidClose({ document: { uri } }: TextChangeEvent) {

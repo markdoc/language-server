@@ -55,6 +55,10 @@ It is possible to have multiple Markdoc configurations for the same workspace by
 
 In [multi-root workspaces](https://code.visualstudio.com/docs/editor/multi-root-workspaces), a Markdoc configuration file is specific to an individual workspace root. You can have separate Markdoc configuration files for each root. If you need to override the location of the Markdoc language server configuration file in a multi-root workspace, you can use a [folder setting](https://code.visualstudio.com/docs/editor/multi-root-workspaces#_settings) to customize this behavior per root.
 
+# Extending the language server with custom functionality
+
+The language server is published as a [package on npm](https://www.npmjs.com/package/@markdoc/language-server) in order to support extensibility and customization. You can tailor the functionality to your needs by adding plugins or creating subclasses that substitute built-in plugins. Support for this is somewhat experimental and the APIs exposed by the package are still subject to change. We will not guarantee API stability or backwards compatibility for language server plugins until the 1.0 release.
+
 # Contributing
 
 Contributions and feedback are welcomed and encouraged. Feel free to open PRs here, or open issues and discussion threads in the [Markdoc core repo](https://github.com/markdoc/markdoc).
