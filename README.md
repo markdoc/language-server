@@ -1,3 +1,5 @@
+# Markdoc language server
+
 This is the official Visual Studio Code extension and language server for the [Markdoc](https://markdoc.dev/) authoring framework.
 
 When the language server and extension are used together and configured to load a Markdoc schema, they support the following features:
@@ -15,7 +17,7 @@ When the language server and extension are used together and configured to load 
 - Creating new Markdoc files from user-defined templates via the new file menu
 - Linked editing for matched opening and closing tag names
 
-# Configuration quickstart
+## Configuration quickstart
 
 After installing the Markdoc extension in Visual Studio Code, create a Markdoc language server configuration file. The extension looks for a file called `markdoc.config.json` in your workspace root, but you can customize this in the extension's settings.
 
@@ -55,15 +57,15 @@ It is possible to have multiple Markdoc configurations for the same workspace by
 
 In [multi-root workspaces](https://code.visualstudio.com/docs/editor/multi-root-workspaces), a Markdoc configuration file is specific to an individual workspace root. You can have separate Markdoc configuration files for each root. If you need to override the location of the Markdoc language server configuration file in a multi-root workspace, you can use a [folder setting](https://code.visualstudio.com/docs/editor/multi-root-workspaces#_settings) to customize this behavior per root.
 
-# Extending the language server with custom functionality
+## Extending the language server with custom functionality
 
 The language server is published as a [package on npm](https://www.npmjs.com/package/@markdoc/language-server) in order to support extensibility and customization. You can tailor the functionality to your needs by adding plugins or creating subclasses that substitute built-in plugins. Support for this is somewhat experimental and the APIs exposed by the package are still subject to change. We will not guarantee API stability or backwards compatibility for language server plugins until the 1.0 release.
 
-# Contributing
+## Contributing
 
 Contributions and feedback are welcomed and encouraged. Feel free to open PRs here, or open issues and discussion threads in the [Markdoc core repo](https://github.com/markdoc/markdoc).
 
-## Building from source
+### Building from source
 
 ```
 $ npm install
@@ -73,7 +75,7 @@ $ npm run build:types
 $ npm run build:extension
 ```
 
-## Running unit tests
+### Running unit tests
 
 The test suite relies on the 'node:test' module that is only included in Node.js 18.x or higher.
 
@@ -81,6 +83,6 @@ The test suite relies on the 'node:test' module that is only included in Node.js
 $ npm run test
 ```
 
-# License
+## License
 
 This project uses the [MIT license](LICENSE).
