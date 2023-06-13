@@ -36,10 +36,11 @@ export default class ValidationProvider {
     } = err;
 
     return {
+      code: error.id,
       range: this.createRange(line, error.location ?? location),
       severity: this.severity(error.level),
       message: error.message,
-      source: `markdoc ${this.config.id ?? ""}`,
+      source: `markdoc:${this.config.id ?? ""}`,
     };
   }
 
