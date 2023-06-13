@@ -5,6 +5,7 @@ import FoldingProvider from "./folding";
 import FormattingProvider from "./formatting";
 import LinkedEditProvider from "./linkedEdit";
 import LinkProvider from "./link";
+import SelectionRangeProvider from "./range";
 import ValidationProvider from "./validation";
 import Watch from "./watch";
 
@@ -16,6 +17,7 @@ export {
   FormattingProvider,
   LinkedEditProvider,
   LinkProvider,
+  SelectionRangeProvider,
   ValidationProvider,
   Watch,
 };
