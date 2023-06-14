@@ -53,6 +53,22 @@ The JSON configuration file consists of an array of server instance descriptions
   - The `routing` property is an optional object that describes your project's routing configuration
     - The `frontmatter` property is a string that tells the extension which property in the Markdoc file's YAML frontmatter contains the URL route associated with the file
 
+### File extensions
+
+In order to distinguish Markdoc files from Markdown files, the Visual Studio Code extension expects Markdoc files to use one of the following file extensions: `.markdoc`, `.markdoc.md`, or `.mdoc`.
+
+It does **not** recognize `.md` files by default. If you would like to still use a `.md` extension, you can instead modify your Visual Studio Code workspace configuration with a custom file association. Add the following content to your `.vscode/settings.json` file:
+
+```
+{
+  "files.associations": {
+    "*.md": "markdoc"
+  }
+}
+```
+
+### Advanced configuration
+
 It is possible to have multiple Markdoc configurations for the same workspace by adding additional configuration objects to the top-level array. This is useful in cases where you have multiple websites with different schemas under different subdirectories of the same workspace. For example, you might want separate configurations for narrative documentation and an API reference.
 
 In [multi-root workspaces](https://code.visualstudio.com/docs/editor/multi-root-workspaces), a Markdoc configuration file is specific to an individual workspace root. You can have separate Markdoc configuration files for each root. If you need to override the location of the Markdoc language server configuration file in a multi-root workspace, you can use a [folder setting](https://code.visualstudio.com/docs/editor/multi-root-workspaces#_settings) to customize this behavior per root.
