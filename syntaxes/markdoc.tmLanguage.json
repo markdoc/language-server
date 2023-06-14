@@ -1,36 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-  "name": "source.markup.markdoc",
-  "scopeName": "source.markup.markdoc",
-  "patterns": [{ "include": "#tag" }],
-  "repository": {
-    "shortcut": {
-      "match": "(\\$|\\.|#)([-_:a-zA-Z0-9]+)",
-      "name": "string.other.markdoc-shortcut"
-    },
-    "attribute": {
-      "match": "([-_a-zA-Z0-9]+)(=)",
-      "captures": {
-        "1": { "name": "entity.other.attribute-name" },
-        "2": { "name": "punctuation.definition.tag.equal.markdoc" }
-      }
-    },
-    "tag": {
-      "name": "punctuation.definition.tag",
-      "begin": "({%)\\s*/?([-_a-zA-Z0-9]+)?",
-      "end": "\\s*/?\\s*%}",
-      "beginCaptures": {
-        "1": { "name": "punctuation.definition.tag.begin.markdoc" },
-        "2": { "name": "entity.name.tag" }
-      },
-      "endCaptures": {
-        "0": { "name": "punctuation.definition.tag.end.markdoc" }
-      },
-      "patterns": [
-        { "include": "#attribute" },
-        { "include": "#shortcut" },
-        { "include": "source.json" }
-      ]
-    }
-  }
+  "name": "markdoc",
+  "scopeName": "text.html.markdown.markdoc",
+  "patterns": [{ "include": "text.html.markdown" }]
 }

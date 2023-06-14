@@ -26,7 +26,7 @@ const mockConnection = {
 };
 
 function mockDoc(content: string) {
-  return TextDocument.create("file:///content.md", "markdown", 0, content);
+  return TextDocument.create("file:///content.md", "markdoc", 0, content);
 }
 
 test("formatting provider", async (t) => {

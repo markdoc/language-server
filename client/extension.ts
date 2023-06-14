@@ -126,7 +126,7 @@ export default class Extension {
 
   async onActive(editor?: VSC.TextEditor) {
     if (!editor) return;
-    if (editor.document.languageId !== "markdown") return this.setActive();
+    if (editor.document.languageId !== "markdoc") return this.setActive();
 
     const { uri } = editor.document;
     const client = this.findClient(uri);
@@ -170,7 +170,7 @@ export default class Extension {
     const content = new TextDecoder().decode(raw);
     const doc = await VSC.workspace.openTextDocument({
       content,
-      language: "markdown",
+      language: "markdoc",
     });
 
     VSC.window.showTextDocument(doc);

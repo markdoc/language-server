@@ -97,7 +97,7 @@ export default class MarkdocClient implements VSC.Disposable {
     const pattern = pathutil.join(fsPath, config.path, "**/*.{md,mdoc}");
     const client: LSP.LanguageClientOptions = {
       initializationOptions: { config },
-      documentSelector: [{ language: "markdown", scheme, pattern }],
+      documentSelector: [{ language: "markdoc", scheme, pattern }],
       markdown: { isTrusted: true },
     };
 

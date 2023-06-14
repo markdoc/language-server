@@ -30,7 +30,7 @@
     "esbuild": "0.17.17",
     "esbuild-register": "^3.4.2",
     "typescript": "^4.9.3",
-    "vsce": "^2.15.0"
+    "@vscode/vsce": "^2.19.0"
   },
   "activationEvents": [],
   "contributes": {
@@ -79,26 +79,21 @@
       "editor/title": [
         {
           "command": "markdoc.preview",
-          "when": "resourceLangId == markdown && markdoc.enabled && markdoc.canPreview",
+          "when": "resourceLangId == markdoc && markdoc.enabled && markdoc.canPreview",
           "group": "navigation"
         }
       ]
     },
     "languages": [
       {
-        "id": "source.markup.markdoc",
+        "id": "markdoc",
         "aliases": [
-          "Markdoc"
-        ]
-      },
-      {
-        "id": "markdown",
-        "aliases": [
-          "Markdown",
-          "markdown"
+          "Markdoc",
+          "markdoc"
         ],
         "extensions": [
-          ".md",
+          ".markdoc",
+          ".markdoc.md",
           ".mdoc"
         ],
         "configuration": "./language-configuration.json"
@@ -106,21 +101,18 @@
     ],
     "grammars": [
       {
-        "language": "source.markup.markdoc",
-        "scopeName": "source.markup.markdoc",
-        "path": "./syntaxes/markdoc.tmLanguage.json",
-        "embeddedLanguages": {
-          "meta.embedded.inline.json": "json"
-        }
+        "language": "markdoc",
+        "scopeName": "text.html.markdown.markdoc",
+        "path": "./syntaxes/markdoc.tmLanguage.json"
       },
       {
         "injectTo": [
-          "text.html.markdown"
+          "text.html.markdown",
+          "source.markup.markdoc"
         ],
-        "scopeName": "text.html.markdown.markdoc",
+        "scopeName": "text.html.markdown.markdoc.injection",
         "path": "./syntaxes/markdoc.markdown.tmLanguage.json",
         "embeddedLanguages": {
-          "meta.embedded.markdoc": "source.markup.markdoc",
           "meta.embedded.inline.json": "json"
         }
       }
