@@ -33,7 +33,7 @@ export default class LinkProvider {
         if (!relative) continue;
 
         const range = utils.getContentRangeInLine(node.lines[0], doc, href);
-        links.push({ target: Scanner.fullPath(relative), range });
+        if (range) links.push({ target: Scanner.fullPath(relative), range });
         continue;
       }
 
@@ -42,7 +42,7 @@ export default class LinkProvider {
         if (typeof file !== "string") continue;
 
         const range = utils.getContentRangeInLine(node.lines[0], doc, file);
-        links.push({ target: Scanner.fullPath(file), range });
+        if (range) links.push({ target: Scanner.fullPath(file), range });
       }
     }
 

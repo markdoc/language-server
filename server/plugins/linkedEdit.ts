@@ -26,11 +26,12 @@ export default class LinkedEditProvider {
     const ast = this.services.Documents.ast(params.textDocument.uri);
     if (!ast || !doc) return;
 
-    for (const { start, end, tag } of utils.getBlockRanges(ast))
+    for (const { start, end, tag } of utils.getBlockRanges(ast)) {
       if (tag && [start, end].includes(params.position.line)) {
         const open = utils.getContentRangeInLine(start, doc, tag);
         const close = utils.getContentRangeInLine(end, doc, tag);
-        return { ranges: [open, close] };
+        if (open && close) return { ranges: [open, close] };
       }
+    }
   }
 }
