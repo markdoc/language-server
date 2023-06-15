@@ -24,10 +24,13 @@ export function getContentRangeInLine(
   doc: TextDocument,
   text: string
 ) {
+  if (typeof line !== "number" || line < 0) return null;
   const lineContent = doc.getText(LSP.Range.create(line, 0, line + 1, 0));
   const startOffset = lineContent.indexOf(text);
   const endOffset = startOffset + text.length;
-  return LSP.Range.create(line, startOffset, line, endOffset);
+  return startOffset < 0
+    ? null
+    : LSP.Range.create(line, startOffset, line, endOffset);
 }
 
 export function* getBlockRanges(ast: Markdoc.Node) {
