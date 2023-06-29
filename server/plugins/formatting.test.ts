@@ -13,11 +13,11 @@ const example1 = `
 const example1Formatted = `
 # This is a test {% #foo %}
 
-- This is an example [foo](/bar)
+* This is an example [foo](/bar)
 `;
 
 const example1LastLine = `
-- This is an example [foo](/bar)
+* This is an example [foo](/bar)
 `;
 
 const mockConnection = {

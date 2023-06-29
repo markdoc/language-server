@@ -30,7 +30,7 @@ export default class FormattingProvider {
       : LSP.Range.create(0, 0, doc.lineCount, 0);
 
     const text = doc.getText(actualRange);
-    const ast = Markdoc.parse(text);
+    const ast = Markdoc.parse(text, { slots: this.config.markdoc?.slots });
     const output = Markdoc.format(ast);
 
     return [LSP.TextEdit.replace(actualRange, output)];
