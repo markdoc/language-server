@@ -5,11 +5,14 @@ import type { Config, ServiceInstances } from "../types";
 import { TextDocument } from "vscode-languageserver-textdocument";
 
 export default class FormattingProvider {
+  protected tokenizer: Markdoc.Tokenizer;
+
   constructor(
     protected config: Config,
     protected connection: LSP.Connection,
     protected services: ServiceInstances
   ) {
+    this.tokenizer = new Markdoc.Tokenizer(config.markdoc ?? {});
     connection.onDocumentFormatting(this.onDocumentFormatting.bind(this));
     connection.onDocumentRangeFormatting(this.onRangeFormatting.bind(this));
   }
@@ -30,7 +33,8 @@ export default class FormattingProvider {
       : LSP.Range.create(0, 0, doc.lineCount, 0);
 
     const text = doc.getText(actualRange);
-    const ast = Markdoc.parse(text);
+    const tokens = this.tokenizer.tokenize(text);
+    const ast = Markdoc.parse(tokens, { slots: this.config.markdoc?.slots });
     const output = Markdoc.format(ast);
 
     return [LSP.TextEdit.replace(actualRange, output)];

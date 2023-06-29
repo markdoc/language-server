@@ -27,7 +27,7 @@ export default class Documents<
 
   parse(content: string, file: string) {
     const tokens = this.tokenizer.tokenize(content);
-    return Markdoc.parse(tokens, file);
+    return Markdoc.parse(tokens, { file, slots: this.config.markdoc?.slots });
   }
 
   protected handleClose({ document }: TextChangeEvent) {

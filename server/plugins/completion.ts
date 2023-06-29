@@ -93,7 +93,6 @@ export default class CompletionProvider {
         insertText: item.data.block ? text : text.replaceAll("\n", ""),
         insertTextFormat: LSP.InsertTextFormat.Snippet,
         kind: LSP.CompletionItemKind.Function,
-        // @ts-expect-error
         documentation: config.description ?? "",
       };
     },
