@@ -7,7 +7,7 @@
   "author": "Ryan Paul",
   "publisher": "stripe",
   "license": "MIT",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A Markdoc language server and Visual Studio Code extension",
   "repository": {
     "type": "git",

@@ -81,14 +81,24 @@ export default class MarkdocClient implements VSC.Disposable {
     this.client?.outputChannel.show();
   }
 
-  private options() {
+  private async options() {
     const { scheme, fsPath } = this.root.uri;
     const config = { root: fsPath, ...this.config };
-    const module = config.server?.path
-      ? pathutil.join(fsPath, config.server?.path)
-      : this.context.asAbsolutePath("dist/client/server.js");
+    let serverPath = this.context.asAbsolutePath("dist/client/server.js");
 
-    const run: LSP.NodeModule = { module, transport: LSP.TransportKind.ipc };
+    if (config.server?.path) {
+      const path = pathutil.join(fsPath, config.server?.path);
+
+      try {
+        await VSC.workspace.fs.stat(VSC.Uri.file(path));
+        serverPath = path;
+      }
+      catch (err) {
+        console.log('Could not load server:', err);
+      }
+    }
+
+    const run: LSP.NodeModule = { module: serverPath, transport: LSP.TransportKind.ipc };
     const server: LSP.ServerOptions = {
       run,
       debug: { ...run, options: { execArgv: ["--nolazy", "--inspect=6009"] } },
@@ -105,7 +115,7 @@ export default class MarkdocClient implements VSC.Disposable {
   }
 
   private async createClient(resolve: () => void) {
-    const { server, client } = this.options();
+    const { server, client } = await this.options();
     const name = `Markdoc: ${this.id}`;
 
     this.client = new LSP.LanguageClient(this.id, name, server, client);
