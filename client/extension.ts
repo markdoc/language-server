@@ -33,6 +33,7 @@ export default class Extension {
       ),
       VSC.workspace.onDidChangeConfiguration(this.onConfigChange.bind(this)),
       VSC.workspace.onDidChangeWorkspaceFolders(this.onFolderChange.bind(this)),
+      VSC.workspace.onDidSaveTextDocument(this.onSave.bind(this)),
       VSC.window.onDidChangeActiveTextEditor(this.onActive.bind(this)),
       VSC.window.registerTreeDataProvider("markdocPartials", this.partials)
     );
@@ -137,11 +138,7 @@ export default class Extension {
 
     const output = await client.getDependencies(uri);
     if (output) this.partials.update(output, client.uri);
-
-    if (this.preview.exists() && client.canPreview()) {
-      const content = await client.renderPreview(uri);
-      if (content) this.preview.update(content);
-    }
+    this.updatePreview(client, uri);
   }
 
   async onNewFileFromTemplate() {
@@ -181,9 +178,21 @@ export default class Extension {
     if (!client?.canPreview()) return;
 
     this.preview.display();
-    const assetUri = this.preview.getAssetUri(client.root.uri);
-    const output = await client.renderPreview(uri, assetUri);
-    if (output) this.preview.update(output);
+    this.updatePreview(client, uri);
+  }
+
+  async updatePreview(client: Client, uri: VSC.Uri) {
+    if (this.preview.exists() && client.canPreview()) {
+      const assetUri = this.preview.getAssetUri(client.root.uri); 
+      const content = await client.renderPreview(uri, assetUri);
+      if (content) this.preview.update(content);
+    }
+  }
+
+  onSave(doc: VSC.TextDocument) {
+    if (doc.languageId !== 'markdoc') return;
+    const client = this.findClient(doc.uri);
+    if (client) this.updatePreview(client, doc.uri);
   }
 
   onConfigChange(ev: VSC.ConfigurationChangeEvent) {
