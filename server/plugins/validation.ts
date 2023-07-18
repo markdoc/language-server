@@ -59,7 +59,7 @@ export default class ValidationProvider {
 
   validate(uri: string) {
     const doc = this.services.Documents.ast(uri);
-    const schema = this.services.Schema.get();
+    const schema = this.services.Schema.get(uri);
 
     if (!schema || !doc) return;
 
@@ -78,7 +78,7 @@ export default class ValidationProvider {
       if (Scanner.has(part.attributes.file))
         partials[part.attributes.file] = true;
 
-    return { ...Schema?.get(), partials };
+    return { ...Schema?.get(uri), partials };
   }
 
   onDidSave({ document: { uri } }: TextChangeEvent) {

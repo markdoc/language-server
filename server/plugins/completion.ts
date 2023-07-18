@@ -18,12 +18,13 @@ export default class CompletionProvider {
     {
       match: /\{%[ ]*[^ ]+$/,
       complete: (params, matches, text) => {
-        const schema = this.services.Schema.get();
+        const uri = params.textDocument.uri;
+        const schema = this.services.Schema.get(uri);
         if (!schema?.tags) return [];
 
         const block = text.trim() === matches[0];
         return Object.keys(schema.tags).map((label) => ({
-          data: { resolve: "tag", block },
+          data: { resolve: "tag", block, uri },
           label,
         }));
       },
@@ -33,7 +34,8 @@ export default class CompletionProvider {
       match: /.*\{%[ ]*([a-zA-Z-_]+)[^\}]* ([a-zA-Z-_]+)="?[^ ]+$/,
       complete: (params, matches) => {
         const [tagName, attrName] = matches.slice(1);
-        const schema = this.services.Schema.get();
+        const uri = params.textDocument.uri;
+        const schema = this.services.Schema.get(uri);
         const attr = schema?.tags?.[tagName]?.attributes?.[attrName];
 
         if (!attr?.matches) return [];
@@ -69,7 +71,7 @@ export default class CompletionProvider {
 
   protected resolvers: Record<string, ResolveFn> = {
     tag: (item) => {
-      const schema = this.services.Schema.get();
+      const schema = this.services.Schema.get(item.data.uri);
       const config = schema?.tags?.[item.label];
 
       if (!config) return item;
