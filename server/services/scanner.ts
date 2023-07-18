@@ -13,7 +13,7 @@ export default class Scanner<
 > {
   protected tokenizer: Markdoc.Tokenizer;
   protected files = new Map<string, TMeta>();
-  protected extensions = [".md", ".mdoc"];
+  protected extensions = [".md", ".mdoc", ".markdoc"];
   protected path: string;
 
   readonly routes = new Map<string, string>();
