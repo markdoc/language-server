@@ -16,15 +16,19 @@ type Completion = {
 export default class CompletionProvider {
   protected completions: Completion[] = [
     {
-      match: /\{%[ ]*[^ ]+$/,
+      match: /\{%[ ]*(\/)?[^ ]+$/,
       complete: (params, matches, text) => {
         const uri = params.textDocument.uri;
         const schema = this.services.Schema.get(uri);
         if (!schema?.tags) return [];
 
-        const block = text.trim() === matches[0];
         return Object.keys(schema.tags).map((label) => ({
-          data: { resolve: "tag", block, uri },
+          data: { 
+            resolve: "tag", uri,
+            block: text.trim() === matches[0],
+            closing: matches[1],
+            pos: params.position
+          },
           label,
         }));
       },
@@ -75,6 +79,27 @@ export default class CompletionProvider {
       const config = schema?.tags?.[item.label];
 
       if (!config) return item;
+      
+      if (item.data.block) {
+        const ast = this.services.Documents.ast(item.data.uri);
+        if (ast) {
+          for (const node of ast.walk())
+            if (node.tag && node.lines.includes(item.data.pos.line))
+              return {label: item.label};
+        }
+      } else {
+        const doc = this.services.Documents.get(item.data.uri);
+        if (doc) {
+          const pos: LSP.Position = item.data.pos;
+          const range = LSP.Range.create(pos.line, pos.character, pos.line + 1, 0);
+          const text = doc.getText(range);
+          if (text.match(/^(?:(?!{%).)+%}/))
+            return {label: item.label};         
+        }
+      }
+
+      if (item.data.closing)
+        return {...item, insertText: `${item.label} %}`};
 
       const attrs = Object.entries(config.attributes ?? {});
       const required = attrs.filter(([_, { required }]) => required);
