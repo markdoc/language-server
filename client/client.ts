@@ -104,7 +104,7 @@ export default class MarkdocClient implements VSC.Disposable {
       debug: { ...run, options: { execArgv: ["--nolazy", "--inspect=6009"] } },
     };
 
-    const pattern = pathutil.join(fsPath, config.path, "**/*.{md,mdoc}");
+    const pattern = pathutil.join(fsPath, config.path, "**/*.{md,mdoc,markdoc}");
     const client: LSP.LanguageClientOptions = {
       initializationOptions: { config },
       documentSelector: [{ language: "markdoc", scheme, pattern }],

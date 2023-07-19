@@ -173,7 +173,10 @@ export default class Extension {
     VSC.window.showTextDocument(doc);
   }
 
-  async onPreview(uri: VSC.Uri) {
+  async onPreview(previewUri: VSC.Uri) {
+    const uri = previewUri ?? VSC.window.activeTextEditor?.document.uri;
+    if (!uri) return;
+
     const client = this.findClient(uri);
     if (!client?.canPreview()) return;
 

@@ -9,7 +9,7 @@ export default class Watch {
     protected connection: LSP.Connection,
     protected services: ServiceInstances
   ) {
-    const content = pathutil.join(config.path, "**/*.{md,mdoc}");
+    const content = pathutil.join(config.path, "**/*.{md,mdoc,markdoc}");
     services.Watcher.add(content, this.onContentChange.bind(this));
 
     if (config.schema?.watch && config.schema.path)

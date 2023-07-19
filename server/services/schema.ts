@@ -1,3 +1,4 @@
+import * as LSP from "vscode-languageserver/node";
 import * as pathutil from "path";
 import type * as Markdoc from "@markdoc/markdoc";
 import type { Config } from "../types";
@@ -7,7 +8,7 @@ export default class Schema<TConfig extends Config = Config> {
 
   constructor(protected config: TConfig) {}
 
-  get(): Markdoc.Config | undefined {
+  get(uri?: LSP.URI): Markdoc.Config | undefined {
     return this.schema;
   }
 
