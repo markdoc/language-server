@@ -15,6 +15,7 @@ export default class FormattingProvider {
     this.tokenizer = new Markdoc.Tokenizer(config.markdoc ?? {});
     connection.onDocumentFormatting(this.onDocumentFormatting.bind(this));
     connection.onDocumentRangeFormatting(this.onRangeFormatting.bind(this));
+    services.Commands.add('markdoc.convertTable', this.convertTable.bind(this));
   }
 
   register(registration: LSP.BulkRegistration) {
@@ -26,8 +27,26 @@ export default class FormattingProvider {
       documentSelector: null,
     });
   }
+  
+  convertTable(uri: string, line: number) {
+    const ast = this.services.Documents.ast(uri);
+    if (!ast) return;
 
-  protected formatRange(doc: TextDocument, range?: LSP.Range) {
+    for (const node of ast.walk())
+      if (node.type === 'table' && node.lines.includes(line)) {
+        const content = new Markdoc.Ast.Node('tag', {}, [node], 'table');
+        const newText = Markdoc.format(content);
+        const [start, end] = node.lines;
+        const range = LSP.Range.create(start, 0, end + 1, 0);
+
+        const wschange = new LSP.WorkspaceChange();
+        const edit = wschange.getTextEditChange(uri);
+        edit.replace(range, newText);
+        this.connection.workspace.applyEdit(wschange.edit);
+      }
+  }
+
+  formatRange(doc: TextDocument, range?: LSP.Range) {
     const actualRange = range
       ? LSP.Range.create(range.start.line, 0, range.end.line + 1, 0)
       : LSP.Range.create(0, 0, doc.lineCount, 0);

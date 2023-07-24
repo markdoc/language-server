@@ -31,11 +31,10 @@ function mockDoc(content: string) {
 
 test("formatting provider", async (t) => {
   // @ts-expect-error
-  const provider = new FormattingProvider({}, mockConnection, {});
+  const provider = new FormattingProvider({}, mockConnection, {Commands: {add(...args: any) {}}});
 
   await t.test("simple full-text formatting", () => {
     const doc = mockDoc(example1);
-    // @ts-expect-error
     const [output] = provider.formatRange(doc);
     assert.strictEqual(output.newText.trim(), example1Formatted.trim());
   });
