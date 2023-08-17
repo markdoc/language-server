@@ -19,6 +19,15 @@ export async function* findFiles(
   }
 }
 
+export function toPlainText(node: Markdoc.Node): string {
+  let output = "";
+  for (const child of node.walk())
+    if (child.type === "text")
+      output += child.attributes.content;
+
+  return output;
+}
+
 export function getContentRangeInLine(
   line: number,
   doc: TextDocument,

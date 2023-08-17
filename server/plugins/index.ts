@@ -7,6 +7,7 @@ import FormattingProvider from "./formatting";
 import LinkedEditProvider from "./linkedEdit";
 import LinkProvider from "./link";
 import SelectionRangeProvider from "./range";
+import SymbolProvider from "./symbols";
 import ValidationProvider from "./validation";
 import Watch from "./watch";
 
@@ -20,6 +21,7 @@ export {
   LinkedEditProvider,
   LinkProvider,
   SelectionRangeProvider,
+  SymbolProvider,
   ValidationProvider,
   Watch,
 };
