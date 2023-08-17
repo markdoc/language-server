@@ -1,6 +1,6 @@
 import * as LSP from "vscode-languageserver/node";
 import * as pathutil from "path";
-import type * as Markdoc from "@markdoc/markdoc";
+import * as Markdoc from "@markdoc/markdoc";
 import type { Config } from "../types";
 
 export default class Schema<TConfig extends Config = Config> {
@@ -17,7 +17,26 @@ export default class Schema<TConfig extends Config = Config> {
   }
 
   async reload() {
-    this.schema = await this.load();
+    const schema = await this.load();
+    this.schema = schema && this.merge(schema);
+  }
+
+  merge(config: Markdoc.Config) {
+    return {
+      ...config,
+      tags: {
+        ...Markdoc.tags,
+        ...config.tags,
+      },
+      nodes: {
+        ...Markdoc.nodes,
+        ...config.nodes,
+      },
+      functions: {
+        ...Markdoc.functions,
+        ...config.functions,
+      },
+    };
   }
 
   async load(): Promise<Markdoc.Config | undefined> {
