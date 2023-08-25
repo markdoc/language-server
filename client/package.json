@@ -3,7 +3,7 @@
   "description": "Markdoc Extension",
   "author": "Ryan Paul",
   "license": "MIT",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "scripts": {
     "build": "esbuild index.ts --bundle --outdir=dist --sourcemap=linked --external:vscode --platform=node --format=cjs",
     "build:server": "esbuild server.ts --bundle --outdir=dist --sourcemap=linked --external:vscode --platform=node --format=cjs"
