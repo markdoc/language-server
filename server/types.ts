@@ -53,6 +53,7 @@ export type MarkdocConfig = {
   typographer?: boolean;
   allowIndentation?: boolean;
   allowComments?: boolean;
+  validateFunctions?: boolean;
 };
 
 export type RoutingConfig = {

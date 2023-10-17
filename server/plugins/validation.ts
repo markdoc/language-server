@@ -78,7 +78,15 @@ export default class ValidationProvider {
       if (Scanner.has(part.attributes.file))
         partials[part.attributes.file] = true;
 
-    return { ...Schema?.get(uri), partials };
+    const schema = Schema?.get(uri);
+    return {
+      ...schema,
+      partials,
+      validation: {
+        environment: 'language-server',
+        ...schema?.validation
+      }
+    };
   }
 
   onDidSave({ document: { uri } }: TextChangeEvent) {

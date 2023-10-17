@@ -15,7 +15,6 @@ export default class FormattingProvider {
     this.tokenizer = new Markdoc.Tokenizer(config.markdoc ?? {});
     connection.onDocumentFormatting(this.onDocumentFormatting.bind(this));
     connection.onDocumentRangeFormatting(this.onRangeFormatting.bind(this));
-    services.Commands.add('markdoc.convertTable', this.convertTable.bind(this));
   }
 
   register(registration: LSP.BulkRegistration) {
