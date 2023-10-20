@@ -24,6 +24,10 @@ export default class Extension {
       this.status,
       this.preview,
       VSC.commands.registerCommand(
+        "markdoc.extractPartial",
+        this.onExtractPartial.bind(this)
+      ),
+      VSC.commands.registerCommand(
         "markdoc.newFileFromTemplate",
         this.onNewFileFromTemplate.bind(this)
       ),
@@ -171,6 +175,31 @@ export default class Extension {
     });
 
     VSC.window.showTextDocument(doc);
+  }
+
+  async onExtractPartial() {
+    const editor = VSC.window.activeTextEditor;
+    if (!editor) return;
+
+    const uri = await VSC.window.showSaveDialog({
+      saveLabel: 'Create',
+      title: 'Name the new partial',
+      filters: {'Markdoc': ['md', 'mdoc', 'markdoc', 'markdoc.md']}
+    });
+
+    if (!uri) return;
+
+    const client = this.findClient(uri);
+    if (!client) return;
+
+    const path = uri.fsPath.slice(client.uri.fsPath.length + 1);
+    const partialTag = `{% partial file="${path}" /%}`;
+
+    const edit = new VSC.WorkspaceEdit();
+    const contents = new TextEncoder().encode(editor.document.getText(editor.selection));
+    edit.createFile(uri, {overwrite: true, contents});
+    edit.replace(editor.document.uri, editor.selection, partialTag);
+    VSC.workspace.applyEdit(edit);
   }
 
   async onPreview(previewUri: VSC.Uri) {
