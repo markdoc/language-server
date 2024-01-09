@@ -13,6 +13,7 @@ export default class Extension {
   private partials: PartialTreeProvider;
   private status: StatusItem;
   private preview: Preview;
+  private active?: Client;
 
   constructor(private context: VSC.ExtensionContext) {
     this.partials = new PartialTreeProvider();
@@ -86,6 +87,9 @@ export default class Extension {
     if (clientsToStart.length < 1) return;
     this.status.setClient(clientsToStart[0]);
     await Promise.allSettled(clientsToStart.map((client) => client.start()));
+
+    const uri = VSC.window.activeTextEditor?.document.uri;
+    if (this.active && uri) this.updatePartialsPane(this.active, uri);
   }
 
   async restart() {
@@ -126,7 +130,9 @@ export default class Extension {
       client?.canPreview()
     );
 
-    if (client) this.status.setClient(client);
+    if (!client) return;
+    this.status.setClient(client);
+    this.active = client;
   }
 
   async onActive(editor?: VSC.TextEditor) {
@@ -140,9 +146,13 @@ export default class Extension {
     if (!client) return;
     await client.start();
 
-    const output = await client.getDependencies(uri);
-    if (output) this.partials.update(output, client.uri);
+    this.updatePartialsPane(client, uri);
     this.updatePreview(client, uri);
+  }
+
+  async updatePartialsPane(client: Client, uri: VSC.Uri) {
+    const output = await client.getDependencies(uri);
+    this.partials.update(output ?? undefined, client.uri);
   }
 
   async onNewFileFromTemplate() {
