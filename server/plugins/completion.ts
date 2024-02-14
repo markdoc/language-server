@@ -16,7 +16,7 @@ type Completion = {
 export default class CompletionProvider {
   protected completions: Completion[] = [
     {
-      match: /\{%[ ]*(\/)?[^ ]+$/,
+      match: /\{%([ ]*)(\/)?[^ ]+$/,
       complete: (params, matches, text) => {
         const uri = params.textDocument.uri;
         const schema = this.services.Schema.get(uri);
@@ -26,7 +26,8 @@ export default class CompletionProvider {
           data: { 
             resolve: "tag", uri,
             block: text.trim() === matches[0],
-            closing: matches[1],
+            spacing: matches[1],
+            closing: matches[2],
             pos: params.position
           },
           label,
@@ -111,9 +112,10 @@ export default class CompletionProvider {
 
       if (required.length < attrs.length) attrText += `\${${index++}}`;
 
+      const spacing = item.data.spacing?.length > 0 ? '' : ' ';
       const text = config.selfClosing
         ? `${item.label}${attrText} /%}`
-        : `${item.label}${attrText} %}\n\$0\n{% /${item.label} %}`;
+        : `${spacing}${item.label}${attrText} %}\n\$0\n{% /${item.label} %}`;
 
       return {
         ...item,
