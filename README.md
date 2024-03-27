@@ -53,6 +53,23 @@ The JSON configuration file consists of an array of server instance descriptions
   - The `routing` property is an optional object that describes your project's routing configuration
     - The `frontmatter` property is a string that tells the extension which property in the Markdoc file's YAML frontmatter contains the URL route associated with the file
 
+### Standalone Server Configuration
+
+When using the server standalone without the client VS Code extension you can pass the configuration object to your LSP client like so:
+
+```json
+{
+  "root": "/path/to/project/root",
+  "path": "relative/path/to/markdoc/files",
+  "config": {
+    "root": "/path/to/project/root",
+    "path": "relative/path/to/markdoc/files"
+  }
+}
+```
+
+Invoke the server with `markdoc-ls --stdio` from within your LSP client.
+
 ### File extensions
 
 In order to distinguish Markdoc files from Markdown files, the Visual Studio Code extension expects Markdoc files to use one of the following file extensions: `.markdoc`, `.markdoc.md`, or `.mdoc`.

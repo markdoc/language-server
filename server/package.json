@@ -1,5 +1,5 @@
 {
-  "name": "@markdoc/language-server",
+  "name": "@fjorn/markdoc-ls",
   "version": "0.0.12",
   "description": "A Markdoc language server",
   "main": "dist/index.js",

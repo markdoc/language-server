@@ -14,6 +14,9 @@
     "url": "https://github.com/markdoc/language-server.git"
   },
   "main": "./dist/client/index.js",
+  "bin": {
+    "markdoc-ls": "dist/server/wrapper.js"
+  },
   "scripts": {
     "build": "node build.mjs",
     "build:watch": "node build.mjs --watch",
