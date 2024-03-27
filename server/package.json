@@ -5,9 +5,6 @@
   "main": "dist/index.js",
   "author": "Ryan Paul",
   "license": "MIT",
-  "bin": {
-    "markdoc-ls": "dist/wrapper.js"
-  },
   "devDependencies": {
     "@markdoc/markdoc": "^0.3.3",
     "@types/picomatch": "^2.3.0",

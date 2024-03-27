@@ -68,6 +68,8 @@ When using the server standalone without the client VS Code extension you can pa
 }
 ```
 
+Invoke the server with `markdoc-ls --stdio` from within your LSP client.
+
 ### File extensions
 
 In order to distinguish Markdoc files from Markdown files, the Visual Studio Code extension expects Markdoc files to use one of the following file extensions: `.markdoc`, `.markdoc.md`, or `.mdoc`.
