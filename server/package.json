@@ -1,10 +1,13 @@
 {
-  "name": "@markdoc/language-server",
+  "name": "@fjorn/markdoc-ls",
   "version": "0.0.12",
   "description": "A Markdoc language server",
   "main": "dist/index.js",
   "author": "Ryan Paul",
   "license": "MIT",
+  "bin": {
+    "markdoc-ls": "dist/wrapper.js"
+  },
   "devDependencies": {
     "@markdoc/markdoc": "^0.3.3",
     "@types/picomatch": "^2.3.0",

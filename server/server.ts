@@ -29,8 +29,9 @@ export function connect(
   });
 
   return new Promise((resolve) => {
-    connection.onInitialized(() => resolve(options));
+    const options = connection.onInitialized(() => resolve(options));
     connection.listen();
+    return options
   });
 }
 
