@@ -25,9 +25,11 @@ export default class Watch {
   }
 
   onContentChange(changes: FileWatchEvent[]) {
-    for (const change of changes)
+    for (const change of changes) {
+      const path = pathutil.join(this.config.root, change.path);
       if (change.type === LSP.FileChangeType.Deleted)
-        this.services.Scanner.delete(change.path);
-      else this.services.Scanner.update(change.path);
+        this.services.Scanner.delete(path);
+      else this.services.Scanner.update(path);
+    }
   }
 }
