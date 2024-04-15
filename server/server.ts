@@ -29,7 +29,7 @@ export function connect(
   });
 
   return new Promise((resolve) => {
-    const options = connection.onInitialized(() => resolve(options));
+    connection.onInitialized(() => resolve(options));
     connection.listen();
     return options
   });
