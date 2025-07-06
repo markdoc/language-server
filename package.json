@@ -99,7 +99,11 @@
           ".markdoc.md",
           ".mdoc"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/markdoc-light.svg",
+          "dark": "./icons/markdoc-dark.svg"
+        }
       }
     ],
     "grammars": [
