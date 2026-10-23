@@ -7,13 +7,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write # Required for npm trusted publishing (OIDC)
+      contents: read
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 25.x
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
+          package-manager-cache: false
       - run: npm ci
         working-directory: client
       - run: npm ci
@@ -26,5 +30,3 @@ jobs:
       - run: cp README.md server
       - run: npm publish --access public
         working-directory: ./server
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
