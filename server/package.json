@@ -5,6 +5,11 @@
   "main": "dist/index.js",
   "author": "Ryan Paul",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markdoc/language-server.git",
+    "directory": "server"
+  },
   "devDependencies": {
     "@markdoc/markdoc": "^0.3.3",
     "@types/picomatch": "^2.3.0",

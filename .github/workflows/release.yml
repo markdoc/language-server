@@ -24,7 +24,7 @@ jobs:
         working-directory: server
       - run: npm ci
       - run: npm run build
-      - run: npx ovsx publish --trusted-publishing
+      - run: npx ovsx publish --trusted-publishing --skip-duplicate
       - run: cp -r dist/server server/dist # Move server build into server dir
       - run: cp README.md server
       - run: npm publish --access public
