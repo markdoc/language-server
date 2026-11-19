@@ -36,6 +36,12 @@
     "@vscode/vsce": "^2.19.0"
   },
   "activationEvents": [],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "Markdoc loads and executes schema and server code from the workspace."
+    }
+  },
   "contributes": {
     "configuration": {
       "title": "Markdoc Language Server",
